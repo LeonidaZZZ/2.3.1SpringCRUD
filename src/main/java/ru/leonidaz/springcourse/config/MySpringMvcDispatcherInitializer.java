@@ -9,7 +9,7 @@ import javax.servlet.ServletException;
 public class MySpringMvcDispatcherInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return null;//new Class[]{DatabaseConfig.class};
+        return new Class[]{DatabaseConfig.class};
     }
 
     @Override

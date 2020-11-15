@@ -4,7 +4,7 @@ import ru.leonidaz.springcourse.models.User;
 
 import java.util.List;
 
-public interface Service {
+public interface UserService {
     List<User> allUsers();
     User showById(int id);
     void save(User user);

@@ -2,7 +2,7 @@ package ru.leonidaz.springcourse.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import ru.leonidaz.springcourse.UserDAO.UserDAO;
+import ru.leonidaz.springcourse.userDAO.UserDAO;
 import ru.leonidaz.springcourse.models.User;
 import org.springframework.stereotype.Service;
 

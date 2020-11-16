@@ -1,4 +1,4 @@
-package ru.leonidaz.springcourse.UserDAO;
+package ru.leonidaz.springcourse.userDAO;
 
 import ru.leonidaz.springcourse.models.User;
 

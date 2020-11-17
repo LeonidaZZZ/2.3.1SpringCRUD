@@ -33,6 +33,11 @@ public class UserHibernateDAOImpl implements UserDAO {
     }
 
     @Override
+    public User findByName(String firstname) {
+        return em.find(User.class,firstname);
+    }
+
+    @Override
     public void edit(int id, User user) {
         em.merge(user);
     }

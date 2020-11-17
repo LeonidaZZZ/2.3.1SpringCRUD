@@ -24,6 +24,8 @@ public class User implements UserDetails {
     transient private String passConfirm;
     @Column
     private String email;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private Set<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -79,9 +81,6 @@ public class User implements UserDetails {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Role> roles;
 
     public User(){
     }

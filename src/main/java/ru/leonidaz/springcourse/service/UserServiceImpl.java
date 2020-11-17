@@ -44,6 +44,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void edit(int id, User user) {
+        user.setRoles(user.getRoles());
         userDAO.edit(id, user);
     }
 

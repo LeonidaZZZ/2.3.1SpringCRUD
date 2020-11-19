@@ -22,6 +22,7 @@ public class UserHibernateDAOImpl implements UserDAO {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public List<User> allUsers() {
         Query named = em.createQuery("select u from User u", User.class);
         return named.getResultList();
@@ -35,8 +36,7 @@ public class UserHibernateDAOImpl implements UserDAO {
     @Override
     public User findByName(String firstname) {
         Query query = em.createQuery("select u from User u where u.firstName=:name", User.class);
-        User user = (User) query.setParameter("name", firstname).getSingleResult();
-        return user;
+        return (User) query.setParameter("name", firstname).getSingleResult();
     }
 
     @Override
@@ -47,6 +47,5 @@ public class UserHibernateDAOImpl implements UserDAO {
     @Override
     public void delete(int id) {
         em.remove(em.find(User.class, id));
-
     }
 }

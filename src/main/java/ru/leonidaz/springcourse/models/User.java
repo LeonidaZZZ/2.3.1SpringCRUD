@@ -20,8 +20,6 @@ public class User implements UserDetails {
     private String lastName;
     @Column
     private String password;
-    @Transient
-    transient private String passConfirm;
     @Column
     private String email;
     @ManyToMany(fetch = FetchType.EAGER)
@@ -66,14 +64,6 @@ public class User implements UserDetails {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getPassConfirm() {
-        return passConfirm;
-    }
-
-    public void setPassConfirm(String passConfirm) {
-        this.passConfirm = passConfirm;
     }
 
     public Set<Role> getRoles() {

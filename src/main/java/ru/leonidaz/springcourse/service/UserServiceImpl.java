@@ -4,8 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
-import ru.leonidaz.springcourse.models.Role;
-import ru.leonidaz.springcourse.userDAO.RoleDAO;
 import ru.leonidaz.springcourse.userDAO.UserDAO;
 import ru.leonidaz.springcourse.models.User;
 import org.springframework.stereotype.Service;
@@ -16,8 +14,6 @@ import java.util.*;
 public class UserServiceImpl implements UserService {
 
     private final UserDAO userDAO;
-    @Autowired
-    private RoleDAO roleDAO;
 
     @Autowired
     public UserServiceImpl(UserDAO userDAO) {

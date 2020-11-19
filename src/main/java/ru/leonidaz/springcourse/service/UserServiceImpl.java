@@ -5,22 +5,24 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.transaction.annotation.Transactional;
 import ru.leonidaz.springcourse.models.Role;
+import ru.leonidaz.springcourse.userDAO.RoleDAO;
 import ru.leonidaz.springcourse.userDAO.UserDAO;
 import ru.leonidaz.springcourse.models.User;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserDAO userDAO;
-
+    private final UserDAO userDAO;
     @Autowired
-    public void setUserDAO(UserDAO userDAO){
+    private RoleDAO roleDAO;
+    @Autowired
+    public UserServiceImpl(UserDAO userDAO){
         this.userDAO = userDAO;
     }
+    @Autowired
 
     @Override
     @Transactional
@@ -37,7 +39,9 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void save(User user) {
-        user.setRoles(Collections.singleton(new Role(1,"ROLE_USER")));
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleDAO.findByID(1));
+        user.setRoles(roles);
         userDAO.save(user);
     }
 
@@ -56,10 +60,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String firstName) throws UsernameNotFoundException {
-        User user = userDAO.findByName(firstName);
-        if (user == null)
-            throw new UsernameNotFoundException("User Not found");
-
-        return user;
+        return userDAO.findByName(firstName);
     }
 }

@@ -34,7 +34,9 @@ public class UserHibernateDAOImpl implements UserDAO {
 
     @Override
     public User findByName(String firstname) {
-        return em.find(User.class,firstname);
+        Query query = em.createQuery("select u from User u where u.firstName=:name", User.class);
+        User user = (User) query.setParameter("name",firstname).getSingleResult();
+        return user;
     }
 
     @Override

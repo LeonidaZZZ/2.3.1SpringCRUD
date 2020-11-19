@@ -17,10 +17,9 @@ public class UsersController {
         this.userService = userService;
     }
 
-    @GetMapping("/{id}")
-    public String showById(@PathVariable("id") int id, Model model){
-        model.addAttribute("user", userService.showById(id));
+    @GetMapping
+    public String showById(Model model, User user){
+        model.addAttribute("user", user);
         return "users/showbyid";
     }
-
 }

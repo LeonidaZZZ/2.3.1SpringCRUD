@@ -62,8 +62,10 @@ public class AdminController {
     @GetMapping("/{id}/edit")
     public String edit(Model model,
                        @PathVariable("id") int id,
-                       @RequestParam(value = "ADMIN", required = false) boolean check) {
-        model.addAttribute("ADMIN", check);
+                       @RequestParam(value = "ADMIN", required = false) boolean adminCheck,
+                       @RequestParam(value = "USER", required = false) boolean userCheck) {
+        model.addAttribute("ADMIN", adminCheck);
+        model.addAttribute("USER", userCheck);
         model.addAttribute("user", userService.showById(id));
         return "admin/edit";
     }
@@ -71,11 +73,13 @@ public class AdminController {
     @PatchMapping("/{id}")
     public String editPerson(@ModelAttribute("user") User user,
                              @PathVariable("id") int id,
-                             @RequestParam(value = "ADMIN", required = false) boolean check) {
-
-        Role role = check ? roleDAO.findByID(2) : roleDAO.findByID(1);
+                             @RequestParam(value = "ADMIN", required = false) boolean adminCheck,
+                             @RequestParam(value = "USER", required = false) boolean userCheck) {
         Set<Role> roles = new HashSet<>();
-        roles.add(role);
+        if (adminCheck)
+            roles.add(roleDAO.findByID(2));
+        if (userCheck)
+            roles.add(roleDAO.findByID(1));
         user.setRoles(roles);
         userService.edit(id, user);
         return "redirect:/admin";

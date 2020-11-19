@@ -18,8 +18,11 @@
             <label for="password">Password</label>
             <input type="text" th:field="*{password}" id="password">
 
-            <label for="role">ADMIN</label>
-            <input type="checkbox" name="ADMIN" th:checked="${ADMIN}" id="role">
+            <label for="role_admin">ADMIN</label>
+            <input type="checkbox" name="ADMIN" th:checked="${ADMIN}" id="role_admin">
+
+            <label for="role_user">USER</label>
+            <input type="checkbox" name="USER" th:checked="${USER}" id="role_user">
 
             <input type="submit" value="Add new user">
         </form>

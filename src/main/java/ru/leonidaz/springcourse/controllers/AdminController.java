@@ -40,16 +40,20 @@ public class AdminController {
     @GetMapping("/new")
     public String newPerson(Model model) {
         model.addAttribute("ADMIN", true);
+        model.addAttribute("USER",true);
         model.addAttribute("user", new User());
         return "admin/new";
     }
 
     @PostMapping
     public String create(@ModelAttribute("user") User user,
-                         @RequestParam(value = "ADMIN", required = false) boolean check) {
-        Role role = check ? roleDAO.findByID(2) : roleDAO.findByID(1);
+                         @RequestParam(value = "ADMIN", required = false) boolean adminCheck,
+                         @RequestParam(value = "USER", required = false) boolean userCheck) {
         Set<Role> roles = new HashSet<>();
-        roles.add(role);
+        if (adminCheck)
+            roles.add(roleDAO.findByID(2));
+        if (userCheck)
+            roles.add(roleDAO.findByID(1));
         user.setRoles(roles);
         userService.save(user);
         return "redirect:/admin";

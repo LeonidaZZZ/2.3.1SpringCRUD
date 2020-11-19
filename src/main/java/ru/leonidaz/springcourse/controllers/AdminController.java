@@ -1,4 +1,5 @@
 package ru.leonidaz.springcourse.controllers;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -6,54 +7,78 @@ import org.springframework.web.bind.annotation.*;
 import ru.leonidaz.springcourse.models.Role;
 import ru.leonidaz.springcourse.models.User;
 import ru.leonidaz.springcourse.service.UserService;
+import ru.leonidaz.springcourse.userDAO.RoleDAO;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
     private final UserService userService;
+    private final RoleDAO roleDAO;
 
     @Autowired
-    public AdminController(UserService userService) {
+    public AdminController(UserService userService, RoleDAO roleDAO) {
+        this.roleDAO = roleDAO;
         this.userService = userService;
     }
 
     @GetMapping()
-    public String allUsers(Model model){
+    public String allUsers(Model model) {
         model.addAttribute("users", userService.allUsers());
-        return "admin/allusers";
+        return "admin/all_users";
     }
 
     @GetMapping("/{id}")
-    public String showById(@PathVariable("id") int id, Model model){
+    public String showById(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", userService.showById(id));
-        return "admin/showbyid";
+        return "admin/show_by_id";
     }
 
     @GetMapping("/new")
-    public String newPerson(Model model){
+    public String newPerson(Model model) {
+        model.addAttribute("ADMIN", true);
         model.addAttribute("user", new User());
         return "admin/new";
     }
 
     @PostMapping
-    public String create(@ModelAttribute("user") User user){
+    public String create(@ModelAttribute("user") User user,
+                         @RequestParam(value = "ADMIN", required = false) boolean check) {
+        Role role = check ? roleDAO.findByID(2) : roleDAO.findByID(1);
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+        user.setRoles(roles);
         userService.save(user);
         return "redirect:/admin";
     }
 
     @GetMapping("/{id}/edit")
-    public String edit(Model model, @PathVariable("id") int id){
+    public String edit(Model model,
+                       @PathVariable("id") int id,
+                       @RequestParam(value = "ADMIN", required = false) boolean check) {
+        model.addAttribute("ADMIN", check);
         model.addAttribute("user", userService.showById(id));
         return "admin/edit";
     }
+
     @PatchMapping("/{id}")
-    public String editPerson(@ModelAttribute("user") User user, @PathVariable("id") int id){
-        userService.edit(id,user);
+    public String editPerson(@ModelAttribute("user") User user,
+                             @PathVariable("id") int id,
+                             @RequestParam(value = "ADMIN", required = false) boolean check) {
+
+        Role role = check ? roleDAO.findByID(2) : roleDAO.findByID(1);
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+        user.setRoles(roles);
+        userService.edit(id, user);
         return "redirect:/admin";
     }
+
     @DeleteMapping("/{id}")
-    public String delete(@PathVariable("id") int id){
+    public String delete(@PathVariable("id") int id) {
         userService.delete(id);
         return "redirect:/admin";
     }

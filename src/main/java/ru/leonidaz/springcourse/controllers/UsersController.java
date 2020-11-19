@@ -6,7 +6,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.leonidaz.springcourse.models.User;
 import ru.leonidaz.springcourse.service.UserService;
 
 @Controller
@@ -23,6 +22,6 @@ public class UsersController {
     public String showById(Model model){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         model.addAttribute("user", userService.findByName(auth.getName()));
-        return "users/showbyid";
+        return "users/show_user";
     }
 }

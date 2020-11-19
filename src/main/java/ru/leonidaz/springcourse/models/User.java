@@ -26,7 +26,7 @@ public class User implements UserDetails {
     private String email;
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "User_id"),
-                                     inverseJoinColumns = @JoinColumn(name = "roles_id"))
+            inverseJoinColumns = @JoinColumn(name = "roles_id"))
     private Set<Role> roles;
 
     @Override
@@ -84,7 +84,7 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    public User(){
+    public User() {
     }
 
     public User(String firstName, String lastName, String email) {

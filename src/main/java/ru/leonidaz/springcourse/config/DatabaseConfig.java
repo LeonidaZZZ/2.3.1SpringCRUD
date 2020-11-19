@@ -13,6 +13,7 @@ import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -37,6 +38,7 @@ public class DatabaseConfig {
         entityManager.setJpaProperties(getHibernateProperties());
         return entityManager;
     }
+
     //Настройка БД
     @Bean
     public DataSource dataSource() {
@@ -47,6 +49,7 @@ public class DatabaseConfig {
         dataSource.setPassword(environment.getProperty("db.password"));
         return dataSource;
     }
+
     //Настройки Hibernate
     public Properties getHibernateProperties() {
         Properties properties = new Properties();

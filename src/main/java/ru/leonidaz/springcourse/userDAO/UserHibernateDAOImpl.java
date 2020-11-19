@@ -12,7 +12,7 @@ public class UserHibernateDAOImpl implements UserDAO {
     private EntityManager em;
 
     @PersistenceContext
-    public void setEm(EntityManager em){
+    public void setEm(EntityManager em) {
         this.em = em;
     }
 
@@ -35,7 +35,7 @@ public class UserHibernateDAOImpl implements UserDAO {
     @Override
     public User findByName(String firstname) {
         Query query = em.createQuery("select u from User u where u.firstName=:name", User.class);
-        User user = (User) query.setParameter("name",firstname).getSingleResult();
+        User user = (User) query.setParameter("name", firstname).getSingleResult();
         return user;
     }
 
@@ -46,7 +46,7 @@ public class UserHibernateDAOImpl implements UserDAO {
 
     @Override
     public void delete(int id) {
-        em.remove(em.find(User.class,id));
+        em.remove(em.find(User.class, id));
 
     }
 }

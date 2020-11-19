@@ -11,12 +11,12 @@ public class RoleDAOImpl implements RoleDAO {
     private EntityManager em;
 
     @PersistenceContext
-    public void setEm(EntityManager em){
+    public void setEm(EntityManager em) {
         this.em = em;
     }
 
     @Override
     public Role findByID(int id) {
-        return em.find(Role.class,id);
+        return em.find(Role.class, id);
     }
 }

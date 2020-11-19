@@ -18,10 +18,12 @@ public class UserServiceImpl implements UserService {
     private final UserDAO userDAO;
     @Autowired
     private RoleDAO roleDAO;
+
     @Autowired
-    public UserServiceImpl(UserDAO userDAO){
+    public UserServiceImpl(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
+
     @Autowired
 
     @Override
@@ -39,9 +41,9 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void save(User user) {
-        Set<Role> roles = new HashSet<>();
-        roles.add(roleDAO.findByID(1));
-        user.setRoles(roles);
+//        Set<Role> roles = new HashSet<>();
+//        roles.add(roleDAO.findByID(1));
+//        user.setRoles(roles);
         userDAO.save(user);
     }
 

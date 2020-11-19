@@ -24,7 +24,6 @@ public class AdminController {
         return "admin/allusers";
     }
 
-
     @GetMapping("/{id}")
     public String showById(@PathVariable("id") int id, Model model){
         model.addAttribute("user", userService.showById(id));

@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface UserService extends UserDetailsService {
     UserDetails loadUserByUsername(String firstName);
+    User findByName(String firstname);
     List<User> allUsers();
     User showById(int id);
     void save(User user);

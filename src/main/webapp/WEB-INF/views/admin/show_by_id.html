@@ -5,10 +5,22 @@
         <title>Show</title>
     </head>
     <body>
-        <p th:utext="${user.getId()}">VALUE</p>
-        <p th:utext="${user.getFirstName()}">VALUE</p>
-        <p th:utext="${user.getLastName()}">VALUE</p>
-        <p th:utext="${user.getEmail()}">VALUE</p>
+        <table border="1">
+            <tr>
+                <th>Id</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>Email</th>
+                <th>Password</th>
+            </tr>
+            <tr>
+                <td><p th:utext="${user.getId()}">VALUE</p></td>
+                <td><p th:utext="${user.getFirstName()}">VALUE</p></td>
+                <td><p th:utext="${user.getId()}">VALUE</p></td>
+                <td><p th:utext="${user.getFirstName()}">VALUE</p></td>
+                <td><p th:utext="${user.getPassword()}">VALUE</p></td>
+            </tr>
+        </table>
 
         <a th:href="@{/admin/{id}/edit(id=${user.getId()})}">Edit</a>
 

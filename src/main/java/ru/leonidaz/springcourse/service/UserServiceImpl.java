@@ -3,6 +3,7 @@ package ru.leonidaz.springcourse.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import ru.leonidaz.springcourse.userDAO.UserDAO;
 import ru.leonidaz.springcourse.models.User;
@@ -14,13 +15,13 @@ import java.util.*;
 public class UserServiceImpl implements UserService {
 
     private final UserDAO userDAO;
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UserServiceImpl(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
-
-    @Autowired
 
     @Override
     @Transactional
@@ -37,16 +38,14 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void save(User user) {
-//        Set<Role> roles = new HashSet<>();
-//        roles.add(roleDAO.findByID(1));
-//        user.setRoles(roles);
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDAO.save(user);
     }
 
     @Override
     @Transactional
     public void edit(int id, User user) {
-        user.setRoles(user.getRoles());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDAO.edit(id, user);
     }
 
